@@ -17,6 +17,7 @@
 package com.android.internal.util.cm;
 
 import android.content.Context;
+import android.os.UserHandle;
 import android.provider.Settings;
 
 import java.util.Calendar;
@@ -24,23 +25,23 @@ import java.util.Calendar;
 public class QuietHoursUtils {
 
     public static boolean inQuietHours(Context context, String option) {
-        if (Settings.System.getInt(context.getContentResolver(),
-                Settings.System.QUIET_HOURS_FORCED, 0) != 0) {
+        if (Settings.System.getIntForUser(context.getContentResolver(),
+                Settings.System.QUIET_HOURS_FORCED, 0, UserHandle.USER_CURRENT_OR_SELF) != 0) {
             // If Quiet hours is forced return immediately
             return true;
         }
 
         // Check if we are in timed Quiet hours mode
-        boolean quietHoursEnabled = Settings.System.getInt(context.getContentResolver(),
-                Settings.System.QUIET_HOURS_ENABLED, 0) != 0;
-        boolean quietHoursOption = Settings.System.getInt(context.getContentResolver(),
-                option, 0) != 0;
+        boolean quietHoursEnabled = Settings.System.getIntForUser(context.getContentResolver(),
+                Settings.System.QUIET_HOURS_ENABLED, 0, UserHandle.USER_CURRENT_OR_SELF) != 0;
+        boolean quietHoursOption = Settings.System.getIntForUser(context.getContentResolver(),
+                option, 0, UserHandle.USER_CURRENT_OR_SELF) != 0;
 
         if (quietHoursEnabled && quietHoursOption) {
-            int quietHoursStart = Settings.System.getInt(context.getContentResolver(),
-                    Settings.System.QUIET_HOURS_START, 0);
-            int quietHoursEnd = Settings.System.getInt(context.getContentResolver(),
-                    Settings.System.QUIET_HOURS_END, 0);
+            int quietHoursStart = Settings.System.getIntForUser(context.getContentResolver(),
+                    Settings.System.QUIET_HOURS_START, 0, UserHandle.USER_CURRENT_OR_SELF);
+            int quietHoursEnd = Settings.System.getIntForUser(context.getContentResolver(),
+                    Settings.System.QUIET_HOURS_END, 0, UserHandle.USER_CURRENT_OR_SELF);
             return inQuietHours(quietHoursStart, quietHoursEnd);
         }
 

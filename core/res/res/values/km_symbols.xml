@@ -54,4 +54,9 @@
   <java-symbol type="string" name="status_day" />
   <java-symbol type="string" name="system_ui_date_pattern" />
 
+  <!-- Active Display -->
+  <java-symbol type="dimen" name="lockscreen_target_inset" />
+  <java-symbol type="dimen" name="glowpad_notification_font_size" />
+  <java-symbol type="dimen" name="glowpad_notification_text_radius" />
+
 </resources>
