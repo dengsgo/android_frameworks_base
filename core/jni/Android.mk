@@ -211,6 +211,7 @@ LOCAL_SHARED_LIBRARIES := \
 	libicuuc \
 	libicui18n \
 	libmedia \
+	libkylin-phoneloc-jni \
 	libwpa_client \
 	libjpeg \
 	libusbhost \
