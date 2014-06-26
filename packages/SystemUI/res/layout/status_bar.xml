@@ -69,13 +69,20 @@
                 android:layout_height="match_parent"
                 android:layout_alignParentStart="true"
                 android:gravity="center_vertical"
-                android:orientation="horizontal"/>  
+                android:orientation="horizontal"/>
         </LinearLayout>
 
         <LinearLayout android:id="@+id/system_icon_area"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:orientation="horizontal">
+
+            <com.android.systemui.statusbar.policy.NetworkTraffic
+                android:id="@+id/networkTraffic"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:singleLine="false"
+                android:gravity="right|center_vertical"/>
 
             <LinearLayout android:id="@+id/statusIcons"
                 android:layout_width="wrap_content"
