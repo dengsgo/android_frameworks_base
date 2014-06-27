@@ -4631,7 +4631,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
     };
 
     private void performScreenRecord() {
-        final Intent recordIntent = new Intent("com.mokee.action.NOTIFY_RECORD_SERVICE");
+        final Intent recordIntent = new Intent("com.kylinmod.action.NOTIFY_RECORD_SERVICE");
         mContext.sendBroadcast(recordIntent, "android.permission.RECORD_SCREEN");
     }
 
