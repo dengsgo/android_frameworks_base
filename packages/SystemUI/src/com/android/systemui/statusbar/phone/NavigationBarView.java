@@ -105,6 +105,7 @@ public class NavigationBarView extends LinearLayout {
     private Drawable mRecentIcon;
     private Drawable mRecentLandIcon;
     private Drawable mHomeIcon, mHomeLandIcon;
+
     // Used in Lockscreen notifications navbar clear all notifs.
     private Drawable mRecentAltIcon, mRecentAltLandIcon;
 
