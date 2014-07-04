@@ -82,7 +82,7 @@ public class ThemeService extends IThemeService.Stub {
     private static final String TAG = ThemeService.class.getName();
 
     private static final String GOOGLE_SETUPWIZARD_PACKAGE = "com.google.android.setupwizard";
-    private static final String CM_SETUPWIZARD_PACKAGE = "com.cyanogenmod.account";
+    private static final String CM_SETUPWIZARD_PACKAGE = "com.kylinmod.setupwizard";
 
     private static final long MAX_ICON_CACHE_SIZE = 33554432L; // 32MB
     private static final long PURGED_ICON_CACHE_SIZE = 25165824L; // 24 MB
