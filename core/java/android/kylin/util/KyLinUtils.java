@@ -26,4 +26,7 @@ public class KyLinUtils {
        return Resources.getSystem().getConfiguration().locale.getLanguage().startsWith(Locale.CHINESE.getLanguage());
     }
 
+    public static boolean isTWLanguage() {
+        return Resources.getSystem().getConfiguration().locale.getCountry().equals("TW");
+    }
 }
