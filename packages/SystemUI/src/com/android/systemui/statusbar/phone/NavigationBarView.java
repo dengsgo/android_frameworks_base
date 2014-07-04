@@ -104,12 +104,9 @@ public class NavigationBarView extends LinearLayout {
     private Drawable mBackIcon, mBackLandIcon, mBackAltIcon, mBackAltLandIcon;
     private Drawable mRecentIcon;
     private Drawable mRecentLandIcon;
-<<<<<<< HEAD
+    private Drawable mHomeIcon, mHomeLandIcon;
     // Used in Lockscreen notifications navbar clear all notifs.
     private Drawable mRecentAltIcon, mRecentAltLandIcon;
-=======
-    private Drawable mHomeIcon, mHomeLandIcon;
->>>>>>> 31f051ab8445c04ca52da40e19062aa57c122954
 
     private DelegateViewHelper mDelegateHelper;
     private DeadZone mDeadZone;
@@ -391,13 +388,10 @@ public class NavigationBarView extends LinearLayout {
         mBackAltLandIcon = res.getDrawable(R.drawable.ic_sysbar_back_ime_land);
         mRecentIcon = res.getDrawable(R.drawable.ic_sysbar_recent);
         mRecentLandIcon = res.getDrawable(R.drawable.ic_sysbar_recent_land);
-<<<<<<< HEAD
         mRecentAltIcon = res.getDrawable(R.drawable.ic_sysbar_recent_clear);
         mRecentAltLandIcon = res.getDrawable(R.drawable.ic_sysbar_recent_clear_land);
-=======
         mHomeIcon = res.getDrawable(R.drawable.ic_sysbar_home);
         mHomeLandIcon = res.getDrawable(R.drawable.ic_sysbar_home_land);
->>>>>>> 31f051ab8445c04ca52da40e19062aa57c122954
     }
 
     public void updateResources(Resources res) {
