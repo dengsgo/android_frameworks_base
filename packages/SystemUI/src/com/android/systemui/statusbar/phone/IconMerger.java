@@ -45,6 +45,7 @@ public class IconMerger extends LinearLayout {
     private int mAvailWidth;
     private boolean mShowCenterClock;
     private int mIconHPadding;
+    private boolean mCenteredClock = false;
 
     public IconMerger(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -92,6 +93,12 @@ public class IconMerger extends LinearLayout {
         // we need to constrain this to an integral multiple of our children
         recalcSize();
         setMeasuredDimension(mAvailWidth - (mAvailWidth % (mIconSize  + 2 * mIconHPadding)), getMeasuredHeight());
+        int width = getMeasuredWidth();
+        if (mCenteredClock) {
+            int totalWidth = mContext.getResources().getDisplayMetrics().widthPixels;
+            width = totalWidth / 2 - mIconSize * 2;
+        }
+        setMeasuredDimension(width - (width % mIconSize), getMeasuredHeight());
     }
 
     @Override
@@ -129,6 +136,13 @@ public class IconMerger extends LinearLayout {
         //if (overflowShown) visibleChildren --;
         //Log.d("maxwen", "getMeasuredWidth()="+getMeasuredWidth()+"getWidth()="+getWidth()+" mIconSize="+mIconSize);
         final boolean moreRequired = visibleChildren * (mIconSize + 2 * mIconHPadding) > mAvailWidth;
+        if (overflowShown) {
+            int totalWidth = mContext.getResources().getDisplayMetrics().widthPixels;
+            if (!mCenteredClock || (visibleChildren > (totalWidth / mIconSize / 2 + 1))) {
+                visibleChildren--;
+            }
+        }
+        final boolean moreRequired = visibleChildren * mIconSize > width;
         if (moreRequired != overflowShown) {
             post(new Runnable() {
                 @Override
@@ -178,5 +192,7 @@ public class IconMerger extends LinearLayout {
                 }
             }
         });
+    public void setCenteredClock(boolean centered) {
+        mCenteredClock = centered;
     }
 }
