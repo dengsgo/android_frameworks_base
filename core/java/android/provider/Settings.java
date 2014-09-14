@@ -2631,20 +2631,10 @@ public final class Settings {
         public static final String BATTERY_LIGHT_FULL_COLOR = "battery_light_full_color";
 
         /**
-         * Show when WiFi or data mobile is sending/receiving data
-         * @hide
-         */
-        public static final String STATUS_BAR_NETWORK_ACTIVITY = "status_bar_network_activity";
-
-        /**
-         * Network traffic indicator, goes from least to greatest significant bitwise
-         * 0 = Display up-stream traffic if set
-         * 1 = Display down-stream traffic if set
-         * 2 = Show as Byte/s if set
-         * 16-31 = Refresh interval(ms)  min: 250  max: 32750  default: 1000
-         * @hide
-         */
-        public static final String NETWORK_TRAFFIC_STATE = "network_traffic_state";
+          * show traffic in statusbar. The value is
+          * int (0: Hide  or 1: Only Rx 2: Rx&Tx).
+          */
+        public static final String STATUS_BAR_NETWORK_TRAFFIC_STYLE = "status_bar_network_traffic_style";
 
         /** Sprint MWI Quirk: Show message wait indicator notifications
          * @hide

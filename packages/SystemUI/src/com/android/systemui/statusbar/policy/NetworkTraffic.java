@@ -1,3 +1,19 @@
+/*
+ * Copyright (C) 2014 The KylinMod OpenSource Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.android.systemui.statusbar.policy;
 
 import java.text.DecimalFormat;
@@ -16,6 +32,7 @@ import android.net.Uri;
 import android.os.Handler;
 import android.os.Message;
 import android.os.SystemClock;
+import android.os.UserHandle;
 import android.provider.Settings;
 import android.util.AttributeSet;
 import android.util.TypedValue;
@@ -23,6 +40,8 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.android.systemui.R;
+
+import android.kylin.util.KyLinUtils;
 
 /*
 *
@@ -33,10 +52,8 @@ import com.android.systemui.R;
 public class NetworkTraffic extends TextView {
     public static final int MASK_UP = 0x00000001;        // Least valuable bit
     public static final int MASK_DOWN = 0x00000002;      // Second least valuable bit
-    public static final int MASK_UNIT = 0x00000004;      // Third least valuable bit
     public static final int MASK_PERIOD = 0xFFFF0000;    // Most valuable 16 bits
 
-    private static final int KILOBIT = 1000;
     private static final int KILOBYTE = 1024;
 
     private static DecimalFormat decimalFormat = new DecimalFormat("##0.#");
@@ -52,7 +69,7 @@ public class NetworkTraffic extends TextView {
     private long lastUpdateTime;
     private int txtSizeSingle;
     private int txtSizeMulti;
-    private int KB = KILOBIT;
+    private int KB = KILOBYTE;
     private int MB = KB * KB;
     private int GB = MB * KB;
 
@@ -80,15 +97,8 @@ public class NetworkTraffic extends TextView {
             long txData = newTotalTxBytes - totalTxBytes;
 
             // If bit/s convert from Bytes to bits
-            String symbol;
-            if (KB == KILOBYTE) {
-                symbol = "B/s";
-            } else {
-                symbol = "b/s";
-                rxData = rxData * 8;
-                txData = txData * 8;
-            }
-
+            String symbol = "B/s";
+ 
             // Get information for uplink ready so the line return can be added
             String output = "";
             if (isSet(mState, MASK_UP)) {
@@ -127,7 +137,7 @@ public class NetworkTraffic extends TextView {
             if (speed < KB) {
                 return decimalFormat.format(speed) + symbol;
             } else if (speed < MB) {
-                return decimalFormat.format(speed / (float)KB) + 'k' + symbol;
+                return decimalFormat.format(speed / (float)KB) + 'K' + symbol;
             } else if (speed < GB) {
                 return decimalFormat.format(speed / (float)MB) + 'M' + symbol;
             }
@@ -149,8 +159,8 @@ public class NetworkTraffic extends TextView {
 
         void observe() {
             ContentResolver resolver = mContext.getContentResolver();
-            Uri uri = Settings.System.getUriFor(Settings.System.NETWORK_TRAFFIC_STATE);
-            resolver.registerContentObserver(uri, false, this);
+            Uri uri = Settings.System.getUriFor(Settings.System.STATUS_BAR_NETWORK_TRAFFIC_STYLE);
+            resolver.registerContentObserver(uri, false, this, UserHandle.USER_ALL);
         }
 
         /*
@@ -221,26 +231,15 @@ public class NetworkTraffic extends TextView {
         }
     };
 
-    private boolean getConnectAvailable() {
-        ConnectivityManager connManager =
-                (ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo network = (connManager != null) ? connManager.getActiveNetworkInfo() : null;
-        return network != null && network.isConnected();
-    }
-
-    private void updateSettings() {
+    public void updateSettings() {
         ContentResolver resolver = mContext.getContentResolver();
-        mState = Settings.System.getInt(resolver, Settings.System.NETWORK_TRAFFIC_STATE, 0);
-        if (isSet(mState, MASK_UNIT)) {
-            KB = KILOBYTE;
-        } else {
-            KB = KILOBIT;
-        }
+        mState = Settings.System.getIntForUser(resolver, Settings.System.STATUS_BAR_NETWORK_TRAFFIC_STYLE, 0
+                 , UserHandle.USER_CURRENT);
         MB = KB * KB;
         GB = MB * KB;
 
         if (isSet(mState, MASK_UP) || isSet(mState, MASK_DOWN)) {
-            if (getConnectAvailable()) {
+            if (KyLinUtils.isOnline(mContext)) {
                 if (mAttached) {
                     totalRxBytes = TrafficStats.getTotalRxBytes();
                     lastUpdateTime = SystemClock.elapsedRealtime();

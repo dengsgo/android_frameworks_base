@@ -34,7 +34,6 @@ public final class PhoneStatusBarTransitions extends BarTransitions {
     private final float mIconAlphaWhenOpaque;
 
     private View mLeftSide, mStatusIcons, mSignalCluster, mClock, mCenterClock, mNetworkTraffic;
-    private View mLeftSide, mStatusIcons, mSignalCluster, mClock, mCenterClock;
     private View mBattery, mDockBattery;
     private Animator mCurrentAnimation;
 
