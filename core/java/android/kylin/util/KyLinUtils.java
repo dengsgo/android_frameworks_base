@@ -50,7 +50,7 @@ public class KyLinUtils {
      */
     public static String formatFileSize(long size) {
         //DecimalFormat df = new DecimalFormat("0.00");
-        String fileSizeString = "";
+        /*String fileSizeString = "";
         if (size < 1024) {
             fileSizeString = df.format((double) size) + "B";
         } else if (size < 1048576) {
@@ -60,6 +60,7 @@ public class KyLinUtils {
         } else {
             fileSizeString = df.format((double) size / 1073741824) + "G";
         }
-        return fileSizeString;
+        */
+        return "";
     }
 }
