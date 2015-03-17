@@ -49,7 +49,7 @@ public class KyLinUtils {
      * @return
      */
     public static String formatFileSize(long size) {
-        DecimalFormat df = new DecimalFormat("0.00");
+        //DecimalFormat df = new DecimalFormat("0.00");
         String fileSizeString = "";
         if (size < 1024) {
             fileSizeString = df.format((double) size) + "B";
