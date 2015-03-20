@@ -21,6 +21,7 @@ import android.content.res.Resources;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
+import java.text.DecimalFormat;
 import java.util.Locale;
 
 public class KyLinUtils {
@@ -49,8 +50,8 @@ public class KyLinUtils {
      * @return
      */
     public static String formatFileSize(long size) {
-        //DecimalFormat df = new DecimalFormat("0.00");
-        /*String fileSizeString = "";
+        DecimalFormat df = new DecimalFormat("#0.00");
+        String fileSizeString = "";
         if (size < 1024) {
             fileSizeString = df.format((double) size) + "B";
         } else if (size < 1048576) {
@@ -60,7 +61,7 @@ public class KyLinUtils {
         } else {
             fileSizeString = df.format((double) size / 1073741824) + "G";
         }
-        */
-        return "";
+        
+        return fileSizeString;
     }
 }
